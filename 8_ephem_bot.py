@@ -14,7 +14,7 @@
 """
 import ephem
 import logging
-
+import datetime
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
@@ -37,6 +37,14 @@ def greet_user(bot, update):
     print(text)
     update.message.reply_text(text)
 
+def about_planet(update, context):
+    print('Вызван /planet')
+    user_planet = update.message.text.split()
+    planet_obj = getattr(ephem, user_planet[1])
+    date = datetime.date.today()
+    planet = planet_obj(date)
+    const = ephem.constellation(planet)
+    update.message.reply_text(f'Планета {user_planet[1]} сегодня находится в созвездии {const[1]}')
 
 def talk_to_me(bot, update):
     user_text = update.message.text 
@@ -49,6 +57,7 @@ def main():
     
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(CommandHandler("planet", about_planet))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
     
     mybot.start_polling()
