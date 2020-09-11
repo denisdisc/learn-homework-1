@@ -15,12 +15,23 @@
 
 """
 
+a = 'string'
+b = 'learn'
+
+def is_string(a, b):
+  if not isinstance(a, str) or not isinstance(b, str):
+    return 0
+  elif a == b:
+    return 1
+  elif a != b:
+    if b == 'learn':
+      if len(a) > len(b):
+        return '2, 3'
+      else:
+        return 3
+
 def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+  print(is_string(a, b))
     
 if __name__ == "__main__":
     main()

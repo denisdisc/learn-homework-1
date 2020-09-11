@@ -14,12 +14,26 @@
     Программа: Программирую
     
 """
+import re
+
+dialog = {"как дела": "хорошо!", "что делаешь?": "программирую"}
+
+def ask_user_dict():
+    question = input('Спрашивай! :)').lower()
+    if re.search(r'пока', question) is not None:
+        return 'пока'
+    elif question in dialog:
+        print(dialog[question].capitalize())
+        return question
+    else:
+        answer = input('Я не знаю ответ.. :( Как мне ответить?')
+        dialog[question] = answer
+        return question
 
 def ask_user():
-    """
-    Замените pass на ваш код
-    """
-    pass
+    question = 0
+    while question != 'пока': 
+        question = ask_user_dict()
     
 if __name__ == "__main__":
     ask_user()

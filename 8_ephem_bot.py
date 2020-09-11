@@ -12,6 +12,7 @@
   бота отвечать, в каком созвездии сегодня находится планета.
 
 """
+import ephem
 import logging
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
