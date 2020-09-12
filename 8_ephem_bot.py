@@ -31,6 +31,9 @@ PROXY = {
     }
 }
 
+planets = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto', 'Sun', 'Moon', 'Phobos',
+           'Deimos', 'Io', 'Europa', 'Ganymede', 'Callisto', 'Mimas', 'Enceladus', 'Tethys', 'Dione', 'Rhea',
+           'Titan', 'Hyperion', 'Iapetus', 'Ariel', 'Umbriel', 'Titania', 'Oberon', 'Miranda']
 
 def greet_user(bot, update):
     text = 'Вызван /start'
@@ -40,12 +43,25 @@ def greet_user(bot, update):
 def about_planet(update, context):
     print('Вызван /planet')
     user_planet = update.message.text.split()
-    planet_obj = getattr(ephem, user_planet[1])
-    date = datetime.date.today()
-    planet = planet_obj(date)
-    const = ephem.constellation(planet)
-    update.message.reply_text(f'Планета {user_planet[1]} сегодня находится в созвездии {const[1]}')
-
+    if user_planet[1] in planets:
+        planet_obj = getattr(ephem, user_planet[1])
+        date = datetime.date.today()
+        planet = planet_obj(date)
+        const = ephem.constellation(planet)
+        update.message.reply_text(f'Планета {user_planet[1]} сегодня находится в созвездии {const[1]}')
+    else:
+        update.message.reply_text(f'{user_planet[1]} - такой планеты я не знаю')
+'''
+    try:
+        user_planet[1] in planets:
+        planet_obj = getattr(ephem, user_planet[1])
+        date = datetime.date.today()
+        planet = planet_obj(date)
+        const = ephem.constellation(planet)
+        update.message.reply_text(f'Планета {user_planet[1]} сегодня находится в созвездии {const[1]}')
+    except attribute error:
+        update.message.reply_text(f'{user_planet[1]} - такой планеты я не знаю')
+'''
 def talk_to_me(bot, update):
     user_text = update.message.text 
     print(user_text)

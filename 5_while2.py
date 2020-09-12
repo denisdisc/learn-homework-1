@@ -18,22 +18,17 @@ import re
 
 dialog = {"как дела": "хорошо!", "что делаешь?": "программирую"}
 
-def ask_user_dict():
-    question = input('Спрашивай! :)').lower()
-    if re.search(r'пока', question) is not None:
-        return 'пока'
-    elif question in dialog:
-        print(dialog[question].capitalize())
-        return question
-    else:
-        answer = input('Я не знаю ответ.. :( Как мне ответить?')
-        dialog[question] = answer
-        return question
-
 def ask_user():
-    question = 0
-    while question != 'пока': 
-        question = ask_user_dict()
-    
+    while True:
+        answer = input('Задать вопрос: ')
+        if answer == 'пока':
+            break
+        else:
+            if answer in dialog:
+                print(dialog[answer].capitalize())
+            else:
+                add_answer = input('Я не знаю ответ.. :( Как мне ответить? ')
+                dialog[answer] = add_answer
+
 if __name__ == "__main__":
     ask_user()
